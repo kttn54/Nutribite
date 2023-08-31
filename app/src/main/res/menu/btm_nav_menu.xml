@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:title="Camera"
+        android:icon="@drawable/ic_camera"
+        android:id="@+id/cameraFragment" />
+
+    <item android:title="History"
+        android:icon="@drawable/ic_history"
+        android:id="@+id/historyFragment" />
+
+    <item android:title="Profile"
+        android:icon="@drawable/ic_profile"
+        android:id="@+id/profileFragment" />
+
+
+</menu>
