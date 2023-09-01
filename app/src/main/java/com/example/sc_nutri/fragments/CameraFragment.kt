@@ -1,14 +1,12 @@
 package com.example.sc_nutri.fragments
 
-import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
+import androidx.core.content.PermissionChecker.checkSelfPermission
 import com.example.sc_nutri.databinding.FragmentCameraBinding
 
 class CameraFragment: Fragment() {
@@ -23,20 +21,26 @@ class CameraFragment: Fragment() {
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
         binding = FragmentCameraBinding.inflate(inflater)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(requireActivity(), arrayOf(Manifest.permission.CAMERA), REQUEST_CAMERA_CODE)
-        }
-
-        binding.btnCapture.setOnClickListener {
-
-        }
+        //getPermissions()
     }
 
+/*
+    private fun getPermissions() {
+        var permissionsList = mutableListOf<String>()
+
+        if(checkSelfPermission(android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
+            permissionsList.add(android.Manifest.permission.CAMERA)
+        if(checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+            permissionsList.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        if(checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
+            permissionsList.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+    }*/
 }
