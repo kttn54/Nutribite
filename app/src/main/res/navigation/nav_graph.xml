@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/cameraFragment">
+    app:startDestination="@id/testCamera">
 
     <fragment
         android:id="@+id/cameraFragment"
@@ -20,4 +20,9 @@
         android:name="com.example.sc_nutri.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <activity
+        android:id="@+id/testCamera"
+        android:name="com.example.sc_nutri.activities.TestCamera"
+        android:label="activity_test_camera"
+        tools:layout="@layout/activity_test_camera" />
 </navigation>

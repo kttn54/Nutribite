@@ -5,6 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.example.sc_nutri.R
 import com.example.sc_nutri.databinding.FragmentProfileBinding
 
 class ProfileFragment: Fragment() {
@@ -22,7 +25,16 @@ class ProfileFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        setupToolbar()
+    }
 
+    private fun setupToolbar() {
+        val toolbar = binding.toolbarProfile
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            title = "Profile"
+            setDisplayHomeAsUpEnabled(false)
+        }
     }
 
 }

@@ -1,12 +1,11 @@
 package com.example.sc_nutri.fragments
 
-import android.content.pm.PackageManager
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.PermissionChecker.checkSelfPermission
+import androidx.appcompat.app.AppCompatActivity
 import com.example.sc_nutri.databinding.FragmentCameraBinding
 
 class CameraFragment: Fragment() {
@@ -30,6 +29,16 @@ class CameraFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         //getPermissions()
+        setupToolbar()
+    }
+
+    private fun setupToolbar() {
+        val toolbar = binding.toolbarCamera
+        (requireActivity() as AppCompatActivity).setSupportActionBar(toolbar)
+        (requireActivity() as AppCompatActivity).supportActionBar?.apply {
+            title = "Image Analysis"
+            setDisplayHomeAsUpEnabled(false)
+        }
     }
 
 /*
