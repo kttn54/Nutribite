@@ -75,8 +75,11 @@ dependencies {
     // Stepview
     implementation 'com.github.shuhart:stepview:1.5.1'
 
-    // Loading Button
-    //implementation 'br.com.simplepass:loading-button-android:2.2.0'
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation "com.squareup.okhttp3:okhttp:5.0.0-alpha.3"
+    implementation "com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.3"
 
     // Navigation Component
     def nav_version = "2.5.2"
@@ -89,9 +92,7 @@ dependencies {
     // ViewModel MVVM
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    // implementation "androidx.arch.lifecycle:extensions:1.1.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
 
     implementation 'com.google.android.gms:play-services-vision:19.0.0'
-    // implementation("com.vanniktech:android-image-cropper:1.0.0")
 }

@@ -28,7 +28,6 @@ class CameraFragment: Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        //getPermissions()
         setupToolbar()
     }
 
@@ -40,16 +39,4 @@ class CameraFragment: Fragment() {
             setDisplayHomeAsUpEnabled(false)
         }
     }
-
-/*
-    private fun getPermissions() {
-        var permissionsList = mutableListOf<String>()
-
-        if(checkSelfPermission(android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED)
-            permissionsList.add(android.Manifest.permission.CAMERA)
-        if(checkSelfPermission(android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-            permissionsList.add(android.Manifest.permission.READ_EXTERNAL_STORAGE)
-        if(checkSelfPermission(android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-            permissionsList.add(android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
-    }*/
 }

@@ -12,6 +12,8 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.lifecycle.ViewModelProvider
+import com.example.sc_nutri.*
 import com.example.sc_nutri.R
 import com.example.sc_nutri.databinding.ActivityTestCameraBinding
 import java.io.File
@@ -23,6 +25,9 @@ class TestCamera : AppCompatActivity() {
     private lateinit var binding: ActivityTestCameraBinding
     private var imageCapture: ImageCapture? = null
     private lateinit var outputDirectory: File
+    private lateinit var viewModel: FileViewModel
+    var photoFile: File ?= null
+    var filePath: String ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +35,10 @@ class TestCamera : AppCompatActivity() {
         setContentView(binding.root)
 
         outputDirectory = getOutputDirectory()
+
+        val fileRepository = FileRepository()
+        val viewModelFactory = FileViewModelFactory(fileRepository)
+        viewModel = ViewModelProvider(this, viewModelFactory)[FileViewModel::class.java]
 
         if (allPermissionGranted()) {
             startCamera()
@@ -42,7 +51,24 @@ class TestCamera : AppCompatActivity() {
 
         binding.btnTakePhoto.setOnClickListener {
             takePhoto()
+            uploadImage(filePath!!)
         }
+
+        binding.btnUploadImage.setOnClickListener {
+            uploadImage(filePath!!)
+        }
+    }
+
+    private fun uploadImage(filePath: String) {
+        val file = File(cacheDir, filePath)
+
+        Log.d("FilePath", "File path: ${file.absolutePath}")
+
+        file.createNewFile()
+        file.outputStream().use {
+            assets.open("sausagesinfo.jpg").copyTo(it)
+        }
+        viewModel.uploadImage(file)
     }
 
     private fun getOutputDirectory(): File {
@@ -59,17 +85,20 @@ class TestCamera : AppCompatActivity() {
     private fun takePhoto() {
 
         val imageCapture = imageCapture ?: return
-        val photoFile = File(
-            outputDirectory,
-            SimpleDateFormat(Constants.FILE_NAME_FORMAT,
+        val currentTime = SimpleDateFormat(Constants.FILE_NAME_FORMAT,
             Locale.getDefault())
-                .format(System
-                    .currentTimeMillis()) + ".jpg"
+            .format(System
+                .currentTimeMillis())
+        filePath = "$currentTime.jpg"
+
+        photoFile = File(
+            outputDirectory,
+            filePath!!
         )
 
         val outputOption = ImageCapture
             .OutputFileOptions
-            .Builder(photoFile)
+            .Builder(photoFile!!)
             .build()
 
         imageCapture.takePicture(
