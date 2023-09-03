@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/intro_background"
+    tools:context=".activities.IntroductionActivity">
+
+    <TextView
+        android:id="@+id/tv_app_name_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="40dp"
+        android:text="Nutribite"
+        android:textColor="@color/sc_main_colour"
+        android:textSize="40sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/iv_intro"
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        app:layout_constraintTop_toBottomOf="@id/tv_app_name_intro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="image"
+        android:src="@drawable/heartfood" />
+
+    <TextView
+        android:id="@+id/tv_intro_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/iv_intro"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:gravity="center"
+        android:text="Tailored, comprehensive information on food products right at your fingertips"
+        android:textColor="#7A8089"
+        android:textStyle="italic"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btn_lets_get_started"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_intro_info"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textAllCaps="false"
+        android:text="Let's get started"
+        android:background="@drawable/shape_button_rounded"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="40dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

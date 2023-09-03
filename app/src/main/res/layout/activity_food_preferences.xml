@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e9ecf5"
+    tools:context=".activities.FoodPreferencesActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_food_preferences"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="@color/white"
+        app:title="Nutribite"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize" />
+
+    <TextView
+        android:id="@+id/tv_allergies_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_food_preferences"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="30dp"
+        android:text="Select your allergies"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tv_allergies_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/tv_allergies_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="5dp"
+        android:text="We'll use this to identify products you should avoid."
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <ScrollView
+        android:id="@+id/sv_allergies"
+        app:layout_constraintTop_toBottomOf="@+id/tv_allergies_description"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
