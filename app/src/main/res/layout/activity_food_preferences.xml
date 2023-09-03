@@ -55,6 +55,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
+        <LinearLayout
+            android:id="@+id/ll_na"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ll_allergies_height"
+            android:orientation="horizontal"
+            android:layout_margin="@dimen/ll_allergies_margin" >
+
+            <ImageView
+                android:id="@+id/iv_na"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/tv_na"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="5"/>
+        </LinearLayout>
 
     </ScrollView>
 
