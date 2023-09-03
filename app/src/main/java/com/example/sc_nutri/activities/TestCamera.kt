@@ -1,11 +1,13 @@
 package com.example.sc_nutri.activities
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
@@ -16,6 +18,8 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.sc_nutri.*
 import com.example.sc_nutri.R
 import com.example.sc_nutri.databinding.ActivityTestCameraBinding
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import java.io.File
 import java.text.SimpleDateFormat
 import java.util.*
@@ -51,24 +55,25 @@ class TestCamera : AppCompatActivity() {
 
         binding.btnTakePhoto.setOnClickListener {
             takePhoto()
-            uploadImage(filePath!!)
+            binding.btnTakePhoto.visibility = View.GONE
+            binding.btnRetake.visibility = View.VISIBLE
         }
 
-        binding.btnUploadImage.setOnClickListener {
-            uploadImage(filePath!!)
+        binding.btnRetake.setOnClickListener {
+            binding.btnTakePhoto.visibility = View.VISIBLE
+            binding.btnRetake.visibility = View.GONE
+            startCamera()
         }
     }
 
-    private fun uploadImage(filePath: String) {
-        val file = File(cacheDir, filePath)
+    private fun uploadImage(file: File) {
+        if (file.exists()) {
+            Log.d(Constants.TAG, "File path: ${file.absolutePath}")
 
-        Log.d("FilePath", "File path: ${file.absolutePath}")
-
-        file.createNewFile()
-        file.outputStream().use {
-            assets.open("sausagesinfo.jpg").copyTo(it)
+            viewModel.uploadImage(file)
+        } else {
+            Log.e(Constants.TAG, "File not found: ${file.absolutePath}")
         }
-        viewModel.uploadImage(file)
     }
 
     private fun getOutputDirectory(): File {
@@ -89,7 +94,7 @@ class TestCamera : AppCompatActivity() {
             Locale.getDefault())
             .format(System
                 .currentTimeMillis())
-        filePath = "$currentTime.jpg"
+        filePath = "IMG_$currentTime.jpg"
 
         photoFile = File(
             outputDirectory,
@@ -112,7 +117,15 @@ class TestCamera : AppCompatActivity() {
                     Toast.makeText(this@TestCamera,
                         "$msg $savedUri",
                         Toast.LENGTH_LONG).show()
+
+                    Log.d(Constants.TAG,"Photo image path is $savedUri")
+
+                    CropImage.activity(savedUri)
+                        .setGuidelines(CropImageView.Guidelines.ON)
+                        .start(this@TestCamera)
                 }
+
+
 
                 override fun onError(exception: ImageCaptureException) {
                     Log.e(Constants.TAG,
@@ -123,12 +136,40 @@ class TestCamera : AppCompatActivity() {
         )
     }
 
-    @SuppressLint("MissingSuperCall")
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
+            val result = CropImage.getActivityResult(data)
+            if (resultCode == RESULT_OK) {
+                val croppedUri = result.uri
+
+                // Convert the cropped URI to a File object
+                val croppedFile = File(croppedUri.path ?: "")
+
+                if (croppedFile.exists()) {
+                    uploadImage(croppedFile)
+                    Log.d(Constants.TAG,"Crop image path is $filePath")
+                } else {
+                    Log.e(Constants.TAG, "Cropped file not found")
+                }
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error
+                Toast.makeText(this@TestCamera,
+                    "Crop Image: Error",
+                    Toast.LENGTH_LONG).show()
+
+                Log.e(Constants.TAG, "Crop image error")
+            }
+        }
+    }
+
     override fun onRequestPermissionsResult(
         requestCode: Int,
         permissions: Array<String>,
         grantResults: IntArray
     ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
         if (requestCode == Constants.REQUEST_CODE_PERMISSIONS) {
             if (allPermissionGranted()) {
                 startCamera()
@@ -184,4 +225,15 @@ class TestCamera : AppCompatActivity() {
                 baseContext, it
             ) == PackageManager.PERMISSION_GRANTED
         }
+
+    override fun onBackPressed() {
+        // Check if the cropping activity is active
+        if (CropImage.isExplicitCameraPermissionRequired(this)) {
+            binding.btnTakePhoto.visibility = View.VISIBLE
+            super.onBackPressed()
+        } else {
+            // Handle the back press as usual for other cases
+            super.onBackPressed()
+        }
+    }
 }

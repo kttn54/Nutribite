@@ -95,4 +95,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.0"
 
     implementation 'com.google.android.gms:play-services-vision:19.0.0'
+
+    api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+
 }

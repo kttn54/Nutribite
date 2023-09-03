@@ -10,10 +10,6 @@ import com.example.sc_nutri.databinding.FragmentCameraBinding
 
 class CameraFragment: Fragment() {
 
-    companion object {
-        private const val REQUEST_CAMERA_CODE = 1
-    }
-
     private lateinit var binding: FragmentCameraBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -29,6 +25,36 @@ class CameraFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
+
+        binding.btnStartCamera.setOnClickListener {
+            binding.btnStartCamera.visibility = View.GONE
+            binding.btnCancelCamera.visibility = View.VISIBLE
+            binding.btnCapture.visibility = View.VISIBLE
+            binding.tvText.visibility = View.GONE
+            binding.ivClearImageExample.visibility = View.GONE
+        }
+
+        binding.btnCancelCamera.setOnClickListener {
+            binding.btnStartCamera.visibility = View.VISIBLE
+            binding.btnCancelCamera.visibility = View.GONE
+            binding.btnCapture.visibility = View.GONE
+            binding.tvText.visibility = View.VISIBLE
+            binding.ivClearImageExample.visibility = View.VISIBLE
+        }
+
+        binding.btnCapture.setOnClickListener {
+            binding.btnCapture.visibility = View.GONE
+            binding.btnCancelCamera.visibility = View.GONE
+            binding.btnAnalyse.visibility = View.VISIBLE
+            binding.btnRetake.visibility = View.VISIBLE
+        }
+
+        binding.btnRetake.setOnClickListener {
+            binding.btnCapture.visibility = View.VISIBLE
+            binding.btnRetake.visibility = View.GONE
+            binding.btnAnalyse.visibility = View.GONE
+            binding.btnCancelCamera.visibility = View.VISIBLE
+        }
     }
 
     private fun setupToolbar() {

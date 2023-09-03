@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">sc-nutri</string>
+    <string name="tv_start_camera">Press Start Camera to scan the packaged food.\n\nPlease ensure the picture is aligned and clear.\n\nExample:</string>
 </resources>
