@@ -16,7 +16,7 @@ class IntroductionActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.btnLetsGetStarted.setOnClickListener {
-            val intent = Intent(this, PersonalInfoActivity::class.java)
+            val intent = Intent(this, FoodPreferencesActivity::class.java)
             startActivity(intent)
         }
     }
