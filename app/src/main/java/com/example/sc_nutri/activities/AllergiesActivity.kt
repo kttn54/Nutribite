@@ -1,7 +1,9 @@
 package com.example.sc_nutri.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.sc_nutri.R
 import com.example.sc_nutri.databinding.ActivityAllergiesBinding
 
@@ -13,5 +15,10 @@ class AllergiesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAllergiesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnGoToCamera.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

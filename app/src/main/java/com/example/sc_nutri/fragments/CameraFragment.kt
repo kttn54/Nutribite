@@ -25,6 +25,7 @@ import com.example.sc_nutri.FileRepository
 import com.example.sc_nutri.FileViewModel
 import com.example.sc_nutri.FileViewModelFactory
 import com.example.sc_nutri.R
+import com.example.sc_nutri.activities.AllergiesActivity
 import com.example.sc_nutri.activities.Constants
 import com.example.sc_nutri.activities.MainActivity
 import com.example.sc_nutri.databinding.FragmentCameraBinding
@@ -94,6 +95,7 @@ class CameraFragment: Fragment() {
             binding.tvText.visibility = View.GONE
             binding.ivClearImageExample.visibility = View.GONE
             binding.cameraViewFinder.visibility = View.VISIBLE
+            binding.btnGoBack.visibility = View.GONE
         }
 
         binding.btnCancelCamera.setOnClickListener {
@@ -103,6 +105,7 @@ class CameraFragment: Fragment() {
             binding.tvText.visibility = View.VISIBLE
             binding.ivClearImageExample.visibility = View.VISIBLE
             binding.cameraViewFinder.visibility = View.GONE
+            binding.btnGoBack.visibility = View.VISIBLE
         }
 
         binding.btnCapture.setOnClickListener {
@@ -124,6 +127,11 @@ class CameraFragment: Fragment() {
 
         binding.btnAnalyse.setOnClickListener {
             uploadImage(croppedFile!!)
+        }
+
+        binding.btnGoBack.setOnClickListener {
+            val intent = Intent(requireContext(), AllergiesActivity::class.java)
+            startActivity(intent)
         }
     }
 

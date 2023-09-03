@@ -20,9 +20,4 @@
         android:name="com.example.sc_nutri.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
-    <activity
-        android:id="@+id/testCamera"
-        android:name="com.example.sc_nutri.activities.TestCamera"
-        android:label="activity_test_camera"
-        tools:layout="@layout/activity_test_camera" />
 </navigation>
