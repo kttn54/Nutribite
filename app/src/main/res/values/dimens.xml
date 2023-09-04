@@ -7,4 +7,7 @@
     <dimen name="iv_allergies_height">50dp</dimen>
     <dimen name="tv_allergies_padding">14dp</dimen>
     <dimen name="ll_allergies_margin_bottom">8dp</dimen>
+    <dimen name="ll_personal_info_margin_top">8dp</dimen>
+    <dimen name="ll_personal_info_margin_start_end">20dp</dimen>
+    <dimen name="ll_personal_info_text_size">20sp</dimen>
 </resources>

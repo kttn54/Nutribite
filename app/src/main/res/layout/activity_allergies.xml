@@ -66,7 +66,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv_allergies_description"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btn_allergies_continue"
         android:fillViewport="true"
         android:layout_marginTop="30dp" >
 
@@ -365,5 +365,18 @@
 
         </LinearLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/btn_allergies_continue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/sv_allergies"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="16dp"
+        android:textAllCaps="false"
+        android:background="@drawable/shape_button_rounded"
+        android:text="Continue" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

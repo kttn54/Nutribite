@@ -16,8 +16,8 @@ class AllergiesActivity : AppCompatActivity() {
         binding = ActivityAllergiesBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.btnGoToCamera.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
+        binding.btnAllergiesContinue.setOnClickListener {
+            val intent = Intent(this, FoodPreferencesActivity::class.java)
             startActivity(intent)
         }
     }

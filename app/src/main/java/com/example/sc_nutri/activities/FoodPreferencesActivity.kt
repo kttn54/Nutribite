@@ -1,5 +1,6 @@
 package com.example.sc_nutri.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.sc_nutri.R
@@ -13,5 +14,12 @@ class FoodPreferencesActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFoodPreferencesBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.btnFoodPreferencesContinue.setOnClickListener {
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
+
+
 }
