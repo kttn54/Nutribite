@@ -12,6 +12,7 @@ import com.example.sc_nutri.FileViewModel
 import com.example.sc_nutri.FileViewModelFactory
 import com.example.sc_nutri.R
 import com.example.sc_nutri.databinding.ActivityMainBinding
+import com.example.sc_nutri.fragments.ProfileFragment
 
 class MainActivity : AppCompatActivity() {
 

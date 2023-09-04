@@ -98,7 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/ll_personal_info_text_size"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="40dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -126,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/ll_personal_info_text_size"
-            android:layout_marginStart="20dp"/>
+            android:layout_marginStart="40dp"/>
     </LinearLayout>
 
     <LinearLayout
