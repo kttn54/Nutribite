@@ -19,8 +19,16 @@ class PersonalInfoActivity : AppCompatActivity() {
         initialiseUI()
 
         binding.btnPersonalInfoContinue.setOnClickListener {
-            val intent = Intent(this, AllergiesActivity::class.java)
-            startActivity(intent)
+            val weight = binding.etWeight.toString()
+            val height = binding.etHeight.toString()
+            val gender = binding.spinnerGender.selectedItem.toString()
+            val fitnessLevel = binding.spinnerFitnessLevel.selectedItem.toString()
+
+            val intentInformation = Intent(this, MainActivity::class.java)
+            intentInformation.putExtra()
+
+            val startIntent = Intent(this, AllergiesActivity::class.java)
+            startActivity(startIntent)
         }
     }
 
@@ -29,6 +37,6 @@ class PersonalInfoActivity : AppCompatActivity() {
         binding.spinnerGender.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genderOptions)
 
         val fitnessActivityOptions = resources.getStringArray(R.array.fitness_level)
-        binding.spinnerGender.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, fitnessActivityOptions)
+        binding.spinnerFitnessLevel.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, fitnessActivityOptions)
     }
 }
