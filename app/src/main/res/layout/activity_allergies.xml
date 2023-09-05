@@ -42,7 +42,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="5dp"
-        android:text="We'll use this to identify products you should avoid."
+        android:text="We will use this to identify products you should avoid."
         android:textColor="@color/black"
         android:textSize="14sp" />
 
