@@ -15,7 +15,17 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize" />
+        android:layout_height="?android:attr/actionBarSize" >
+
+        <Button
+            android:id="@+id/btn_toolbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:textAllCaps="false"
+            android:layout_gravity="end"
+            android:layout_marginEnd="10dp"/>
+    </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:id="@+id/ll_profile_gender"
@@ -40,6 +50,7 @@
 
         <Spinner
             android:id="@+id/spinner_profile_gender"
+            android:layout_marginStart="@dimen/profile_boxes_margin_start"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3" />
@@ -69,6 +80,7 @@
         <EditText
             android:id="@+id/et_profile_weight"
             android:layout_width="0dp"
+            android:layout_marginStart="@dimen/profile_boxes_margin_start"
             android:layout_height="wrap_content"
             android:layout_weight="3" />
     </LinearLayout>
@@ -98,6 +110,7 @@
             android:id="@+id/et_profile_height"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/profile_boxes_margin_start"
             android:layout_weight="3" />
     </LinearLayout>
 
@@ -126,6 +139,7 @@
             android:id="@+id/spinner_profile_fitness_activity"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/profile_boxes_margin_start"
             android:layout_weight="3" />
     </LinearLayout>
 
@@ -154,7 +168,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="3"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="@dimen/profile_boxes_margin_start"
             app:cardCornerRadius="5dp"
             app:cardElevation="10dp" >
 
@@ -163,16 +177,22 @@
                 android:layout_height="match_parent" >
 
                 <TextView
+                    android:id="@+id/tv_allergies_list"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:padding="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginEnd="5dp"
                     android:layout_centerInParent="true" />
 
                 <ImageView
+                    android:id="@+id/iv_allergies"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_arrow_dropdown"
+                    android:layout_alignParentEnd="true"
                     android:layout_centerInParent="true"
-                    android:layout_alignParentEnd="true" />
+                    android:src="@drawable/ic_arrow_dropdown" />
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
     </LinearLayout>
@@ -197,13 +217,27 @@
             android:layout_gravity="fill"
             android:textSize="20sp"
             android:textColor="@color/black"
-            android:text="Food \npref: " />
+            android:text="Food \nprefs: " />
 
         <EditText
             android:id="@+id/et_profile_food_preferences"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/profile_boxes_margin_start"
             android:layout_weight="3" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btn_confirm"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="Confirm"
+        android:textAllCaps="false"
+        android:layout_margin="10dp"
+        android:visibility="gone"
+        tools:visibility="visible"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

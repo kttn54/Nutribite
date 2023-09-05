@@ -19,17 +19,17 @@ class PersonalInfoActivity : AppCompatActivity() {
 
         initialiseUI()
 
-        val sharedPref = getSharedPreferences("MySharedPreferences", Context.MODE_PRIVATE)
-        val editor = sharedPref.edit()
-
         binding.btnPersonalInfoContinue.setOnClickListener {
-            val weight = binding.etWeight.toString()
-            val height = binding.etHeight.toString()
+            val sharedPref = getSharedPreferences("MySharedPreferences", Context.MODE_PRIVATE)
+            val editor = sharedPref.edit()
+
+            val weight = binding.etWeight.text.toString().toInt()
+            val height = binding.etHeight.text.toString().toInt()
             val gender = binding.spinnerGender.selectedItem.toString()
             val fitnessLevel = binding.spinnerFitnessLevel.selectedItem.toString()
 
-            editor.putString("weight", weight)
-            editor.putString("height", height)
+            editor.putInt("weight", weight)
+            editor.putInt("height", height)
             editor.putString("gender", gender)
             editor.putString("fitnessLevel", fitnessLevel)
             editor.apply()

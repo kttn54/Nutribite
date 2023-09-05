@@ -11,6 +11,7 @@
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
     <string name="title_activity_food_preferences">FoodPreferencesActivity</string>
+    <string name="food_preferences_description">It can be as personalised as you\'d like!\n\nFor example:\nI\'d like to consume more iron and Vitamin C.\nI want to avoid sugary foods.</string>
 
     <string-array name="genders">
         <item>Male</item>
@@ -19,10 +20,10 @@
     </string-array>
 
     <string-array name="fitness_level">
-        <item>Sedentary (little or no exercise)</item>
-        <item>Lightly active (light exercise or sports 1-3 days a week)</item>
-        <item>Moderately active (moderate exercise or sports 3-5 days a week)</item>
-        <item>Very active (hard exercise or sports 6-7 days a week)</item>
-        <item>Super active (very hard exercise, physical job, or training twice a day)</item>
+        <item>Sedentary (little/no exercise)</item>
+        <item>Lightly active (light exercise/sports 1-3 days a week)</item>
+        <item>Moderately active (moderate exercise/sports 3-5 days a week)</item>
+        <item>Very active (hard exercise/sports 6-7 days a week)</item>
+        <item>Super active (very hard exercise/training twice a day)</item>
     </string-array>
 </resources>

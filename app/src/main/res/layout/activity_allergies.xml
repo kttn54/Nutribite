@@ -76,6 +76,7 @@
                     android:id="@+id/iv_na"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/iv_allergies_height"
+                    android:padding="@dimen/allergies_iv_padding"
                     android:src="@drawable/allergies_not_applicable"
                     android:layout_weight="1"/>
 
@@ -85,6 +86,7 @@
                     android:layout_height="match_parent"
                     android:padding="@dimen/tv_allergies_padding"
                     android:text="Not Applicable"
+                    android:layout_marginStart="@dimen/allergies_tv_margin_start"
                     android:background="@drawable/shape_textview_rounded"
                     android:textColor="@color/black"
                     android:layout_weight="5"/>
@@ -102,6 +104,7 @@
                     android:id="@+id/iv_milk"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/iv_allergies_height"
+                    android:padding="@dimen/allergies_iv_padding"
                     android:src="@drawable/allergies_milk"
                     android:layout_weight="1"/>
 
@@ -112,6 +115,7 @@
                     android:background="@drawable/shape_textview_rounded"
                     android:padding="@dimen/tv_allergies_padding"
                     android:text="Milk"
+                    android:layout_marginStart="@dimen/allergies_tv_margin_start"
                     android:textColor="@color/black"
                     android:layout_weight="5"/>
             </LinearLayout>
@@ -128,6 +132,7 @@
                     android:id="@+id/iv_eggs"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/iv_allergies_height"
+                    android:padding="@dimen/allergies_iv_padding"
                     android:src="@drawable/allergies_eggs"
                     android:layout_weight="1"/>
 
@@ -137,6 +142,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/shape_textview_rounded"
                     android:padding="@dimen/tv_allergies_padding"
+                    android:layout_marginStart="@dimen/allergies_tv_margin_start"
                     android:text="Eggs"
                     android:textColor="@color/black"
                     android:layout_weight="5"/>
@@ -154,6 +160,7 @@
                     android:id="@+id/iv_peanut"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/iv_allergies_height"
+                    android:padding="@dimen/allergies_iv_padding"
                     android:src="@drawable/allergies_peanut"
                     android:layout_weight="1"/>
 
@@ -163,6 +170,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/shape_textview_rounded"
                     android:padding="@dimen/tv_allergies_padding"
+                    android:layout_marginStart="@dimen/allergies_tv_margin_start"
                     android:text="Peanut"
                     android:textColor="@color/black"
                     android:layout_weight="5"/>
@@ -180,6 +188,7 @@
                     android:id="@+id/iv_tree_nuts"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/iv_allergies_height"
+                    android:padding="@dimen/allergies_iv_padding"
                     android:src="@drawable/allergies_tree_nuts"
                     android:layout_weight="1"/>
 
@@ -189,6 +198,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/shape_textview_rounded"
                     android:padding="@dimen/tv_allergies_padding"
+                    android:layout_marginStart="@dimen/allergies_tv_margin_start"
                     android:text="Tree Nuts (almonds, walnuts, cashews etc.)"
                     android:textColor="@color/black"
                     android:layout_weight="5"/>
@@ -206,6 +216,7 @@
                     android:id="@+id/iv_soy"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/iv_allergies_height"
+                    android:padding="@dimen/allergies_iv_padding"
                     android:src="@drawable/allergies_soy"
                     android:layout_weight="1"/>
 
@@ -215,6 +226,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/shape_textview_rounded"
                     android:padding="@dimen/tv_allergies_padding"
+                    android:layout_marginStart="@dimen/allergies_tv_margin_start"
                     android:text="Soy"
                     android:textColor="@color/black"
                     android:layout_weight="5"/>
@@ -232,6 +244,7 @@
                     android:id="@+id/iv_wheat"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/iv_allergies_height"
+                    android:padding="@dimen/allergies_iv_padding"
                     android:src="@drawable/allergies_wheat"
                     android:layout_weight="1"/>
 
@@ -241,6 +254,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/shape_textview_rounded"
                     android:padding="@dimen/tv_allergies_padding"
+                    android:layout_marginStart="@dimen/allergies_tv_margin_start"
                     android:text="Wheat"
                     android:textColor="@color/black"
                     android:layout_weight="5"/>
@@ -258,6 +272,7 @@
                     android:id="@+id/iv_fish"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/iv_allergies_height"
+                    android:padding="@dimen/allergies_iv_padding"
                     android:src="@drawable/allergies_fish"
                     android:layout_weight="1"/>
 
@@ -267,6 +282,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/shape_textview_rounded"
                     android:padding="@dimen/tv_allergies_padding"
+                    android:layout_marginStart="@dimen/allergies_tv_margin_start"
                     android:text="Fish"
                     android:textColor="@color/black"
                     android:layout_weight="5"/>
@@ -284,6 +300,7 @@
                     android:id="@+id/iv_shellfish"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/iv_allergies_height"
+                    android:padding="@dimen/allergies_iv_padding"
                     android:src="@drawable/allergies_shellfish"
                     android:layout_weight="1"/>
 
@@ -293,6 +310,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/shape_textview_rounded"
                     android:padding="@dimen/tv_allergies_padding"
+                    android:layout_marginStart="@dimen/allergies_tv_margin_start"
                     android:text="Shellfish (crustaceans and mollusks)"
                     android:textColor="@color/black"
                     android:layout_weight="5"/>
@@ -310,6 +328,7 @@
                     android:id="@+id/iv_sesame"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/iv_allergies_height"
+                    android:padding="@dimen/allergies_iv_padding"
                     android:src="@drawable/allergies_sesame"
                     android:layout_weight="1"/>
 
@@ -319,6 +338,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/shape_textview_rounded"
                     android:padding="@dimen/tv_allergies_padding"
+                    android:layout_marginStart="@dimen/allergies_tv_margin_start"
                     android:text="Sesame"
                     android:textColor="@color/black"
                     android:layout_weight="5"/>
@@ -336,6 +356,7 @@
                     android:id="@+id/iv_sulfites"
                     android:layout_width="0dp"
                     android:layout_height="@dimen/iv_allergies_height"
+                    android:padding="@dimen/allergies_iv_padding"
                     android:src="@drawable/allergies_sulfites"
                     android:layout_weight="1"/>
 
@@ -345,6 +366,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/shape_textview_rounded"
                     android:padding="@dimen/tv_allergies_padding"
+                    android:layout_marginStart="@dimen/allergies_tv_margin_start"
                     android:text="Sulfites"
                     android:textColor="@color/black"
                     android:layout_weight="5"/>
