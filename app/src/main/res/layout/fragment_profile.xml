@@ -173,6 +173,7 @@
             app:cardElevation="10dp" >
 
             <RelativeLayout
+                android:id="@+id/rl_allergies_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" >
 

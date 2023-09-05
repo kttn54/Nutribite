@@ -58,7 +58,7 @@ class ProfileFragment: Fragment() {
             setUINotClickable()
         }
 
-        binding.tvAllergiesList.setOnClickListener {
+        binding.rlAllergiesList.setOnClickListener {
             showAllergiesList()
         }
     }

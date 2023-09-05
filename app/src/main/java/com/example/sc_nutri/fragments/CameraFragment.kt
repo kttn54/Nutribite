@@ -32,6 +32,8 @@ import com.example.sc_nutri.databinding.FragmentCameraBinding
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
 import java.io.File
+import java.io.FileOutputStream
+import java.io.IOException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -124,7 +126,27 @@ class CameraFragment: Fragment() {
         }
 
         binding.btnAnalyse.setOnClickListener {
-            uploadImage(croppedFile!!)
+            val fileName = "test_image"
+            val file = File(requireContext().cacheDir, fileName)
+
+            Log.d("FilePath", "File path: ${file.absolutePath}")
+
+            try {
+                val inputStream = requireContext().assets.open("sausagesinfo.jpg")
+                val outputStream = FileOutputStream(file)
+
+                inputStream.use { input ->
+                    outputStream.use { output ->
+                        input.copyTo(output)
+                    }
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+            uploadImage(file)
+
+            //uploadImage(croppedFile!!)
         }
     }
 
@@ -192,7 +214,6 @@ class CameraFragment: Fragment() {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        Log.d("test", "hello")
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             val result = CropImage.getActivityResult(data)
