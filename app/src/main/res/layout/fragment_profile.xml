@@ -66,7 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="@dimen/profile_ll_margin_top">
 
         <TextView
             android:id="@+id/tv_profile_weight"
@@ -95,7 +95,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="@dimen/profile_ll_margin_top">
 
         <TextView
             android:id="@+id/tv_profile_height"
@@ -124,7 +124,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="@dimen/profile_ll_margin_top">
 
         <TextView
             android:id="@+id/tv_profile_fitness_activity"
@@ -144,7 +144,7 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_profile_allergies"
+        android:id="@+id/ll_profile_weight_preferences"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -153,7 +153,36 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="@dimen/profile_ll_margin_top">
+
+        <TextView
+            android:id="@+id/tv_profile_weight_preferences"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:textColor="@color/black"
+            android:text="Weight prefs: " />
+
+        <Spinner
+            android:id="@+id/spinner_profile_weight_preferences"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/profile_boxes_margin_start"
+            android:layout_weight="3" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_profile_allergies"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/ll_profile_weight_preferences"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="@dimen/profile_ll_margin_top">
 
         <TextView
             android:id="@+id/tv_profile_allergies"
@@ -208,7 +237,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="40dp">
+        android:layout_marginTop="@dimen/profile_ll_margin_top">
 
         <TextView
             android:id="@+id/tv_profile_food_preferences"

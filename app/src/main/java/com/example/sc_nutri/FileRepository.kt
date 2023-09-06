@@ -1,13 +1,17 @@
 package com.example.sc_nutri
 
+import com.example.sc_nutri.models.BackendResponse
+import com.example.sc_nutri.models.User
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
 import retrofit2.Call
-import retrofit2.HttpException
 import java.io.File
-import java.io.IOException
 
 class FileRepository {
+
+    fun uploadProfileInfo(user: String): Call<BackendResponse> =
+        FileAPI.instance.uploadProfileInfo(user)
 
     fun uploadImage(file: File): Call<BackendResponse> =
         FileAPI.instance.uploadImage(
@@ -15,7 +19,7 @@ class FileRepository {
                 .createFormData(
                     "file",
                     file.name,
-                    file.asRequestBody()
+                    file.asRequestBody("image/jpg".toMediaTypeOrNull())
                 )
         )
 }

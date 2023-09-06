@@ -70,7 +70,35 @@
             android:id="@+id/spinner_gender"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="79dp"/>
+            android:layout_marginStart="100dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_age"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/ll_gender"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="@dimen/ll_profile_info_margin_top"
+        android:layout_marginStart="@dimen/ll_personal_info_margin_start_end"
+        android:layout_marginEnd="@dimen/ll_personal_info_margin_start_end">
+
+        <TextView
+            android:id="@+id/tv_age"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Age: "
+            android:textColor="@color/black"
+            android:textSize="@dimen/ll_personal_info_text_size"/>
+
+        <EditText
+            android:id="@+id/et_age"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/ll_personal_info_text_size"
+            android:layout_marginStart="130dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -78,10 +106,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/ll_gender"
+        app:layout_constraintTop_toBottomOf="@id/ll_age"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="@dimen/ll_profile_info_margin_top"
         android:layout_marginStart="@dimen/ll_personal_info_margin_start_end"
         android:layout_marginEnd="@dimen/ll_personal_info_margin_start_end">
 
@@ -98,7 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/ll_personal_info_text_size"
-            android:layout_marginStart="40dp"/>
+            android:layout_marginStart="61dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -109,7 +137,7 @@
         app:layout_constraintTop_toBottomOf="@id/ll_weight"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="@dimen/ll_profile_info_margin_top"
         android:layout_marginStart="@dimen/ll_personal_info_margin_start_end"
         android:layout_marginEnd="@dimen/ll_personal_info_margin_start_end">
 
@@ -126,7 +154,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/ll_personal_info_text_size"
-            android:layout_marginStart="40dp"/>
+            android:layout_marginStart="62dp"/>
     </LinearLayout>
 
     <LinearLayout
@@ -151,6 +179,32 @@
 
         <Spinner
             android:id="@+id/spinner_fitness_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"/>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/ll_gain_lose_weight"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintTop_toBottomOf="@id/ll_fitness_level"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="25dp"
+        android:layout_marginStart="@dimen/ll_personal_info_margin_start_end"
+        android:layout_marginEnd="@dimen/ll_personal_info_margin_start_end">
+
+        <TextView
+            android:id="@+id/tv_gain_lose_weight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Do you want to \ngain/lose weight?: "
+            android:textColor="@color/black"
+            android:textSize="@dimen/ll_personal_info_text_size"/>
+
+        <Spinner
+            android:id="@+id/spinner_gain_lose_weight"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"/>

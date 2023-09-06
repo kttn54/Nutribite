@@ -24,6 +24,7 @@ class ProfileFragment: Fragment() {
     private lateinit var foodPreferences: String
     private var bmr = 0
     private lateinit var fitnessLevel: String
+    private lateinit var weightPreference: String
     private var allergiesList: ArrayList<String> = ArrayList()
     private var allergiesListDropdown: ArrayList<Int> = ArrayList()
     private var allergies: String = ""
@@ -140,8 +141,8 @@ class ProfileFragment: Fragment() {
         weight = sharedPref.getInt("weight", 0)
         height = sharedPref.getInt("height", 0)
         gender = sharedPref.getString("gender", "")!!
-        calculateBMR()
         fitnessLevel = sharedPref.getString("fitnessLevel", "")!!
+        weightPreference = sharedPref.getString("weightPreference", "")!!
         foodPreferences = sharedPref.getString("foodPreferences", "")!!
         Log.d("test", "fitnessLevel is $fitnessLevel")
 
@@ -151,10 +152,6 @@ class ProfileFragment: Fragment() {
         for (i in 0 until jsonArray.length()) {
             allergiesList.add(jsonArray.getString(i))
         }
-    }
-
-    private fun calculateBMR() {
-
     }
 
     private fun setupToolbar() {
@@ -193,10 +190,15 @@ class ProfileFragment: Fragment() {
         val positionGender = (binding.spinnerProfileGender.adapter as ArrayAdapter<String>).getPosition(gender)
         binding.spinnerProfileGender.setSelection(positionGender)
 
-        val fitnessLevelOptions = resources.getStringArray(R.array.fitness_level)
+        val fitnessLevelOptions = resources.getStringArray(R.array.fitnessLevel)
         binding.spinnerProfileFitnessActivity.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, fitnessLevelOptions)
         val positionFitness = (binding.spinnerProfileFitnessActivity.adapter as ArrayAdapter<String>).getPosition(fitnessLevel)
         binding.spinnerProfileFitnessActivity.setSelection(positionFitness)
+
+        val weightPreferencesOptions = resources.getStringArray(R.array.weightPreferences)
+        binding.spinnerProfileWeightPreferences.adapter = ArrayAdapter(requireContext(), android.R.layout.simple_spinner_item, weightPreferencesOptions)
+        val positionWeight = (binding.spinnerProfileWeightPreferences.adapter as ArrayAdapter<String>).getPosition(weightPreference)
+        binding.spinnerProfileWeightPreferences.setSelection(positionWeight)
     }
 
 }

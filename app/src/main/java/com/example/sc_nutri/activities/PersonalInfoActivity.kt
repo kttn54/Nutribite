@@ -25,13 +25,17 @@ class PersonalInfoActivity : AppCompatActivity() {
 
             val weight = binding.etWeight.text.toString().toInt()
             val height = binding.etHeight.text.toString().toInt()
+            val age = binding.etAge.text.toString().toInt()
             val gender = binding.spinnerGender.selectedItem.toString()
             val fitnessLevel = binding.spinnerFitnessLevel.selectedItem.toString()
+            val weightPreferences = binding.spinnerGainLoseWeight.selectedItem.toString()
 
             editor.putInt("weight", weight)
             editor.putInt("height", height)
+            editor.putInt("age", age)
             editor.putString("gender", gender)
             editor.putString("fitnessLevel", fitnessLevel)
+            editor.putString("weightPreference", weightPreferences)
             editor.apply()
 
             val startIntent = Intent(this, AllergiesActivity::class.java)
@@ -43,7 +47,11 @@ class PersonalInfoActivity : AppCompatActivity() {
         val genderOptions = resources.getStringArray(R.array.genders)
         binding.spinnerGender.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, genderOptions)
 
-        val fitnessActivityOptions = resources.getStringArray(R.array.fitness_level)
+        val fitnessActivityOptions = resources.getStringArray(R.array.fitnessLevel)
         binding.spinnerFitnessLevel.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, fitnessActivityOptions)
+
+        val weightPreferencesOptions = resources.getStringArray(R.array.weightPreferences)
+        binding.spinnerGainLoseWeight.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, weightPreferencesOptions)
+
     }
 }

@@ -20,17 +20,16 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.ViewModelProvider
-import com.example.sc_nutri.FileRepository
 import com.example.sc_nutri.FileViewModel
-import com.example.sc_nutri.FileViewModelFactory
 import com.example.sc_nutri.R
-import com.example.sc_nutri.activities.AllergiesActivity
-import com.example.sc_nutri.activities.Constants
+import com.example.sc_nutri.Constants
 import com.example.sc_nutri.activities.MainActivity
 import com.example.sc_nutri.databinding.FragmentCameraBinding
+import com.example.sc_nutri.models.User
+import com.google.gson.Gson
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
+import org.json.JSONArray
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
@@ -125,8 +124,34 @@ class CameraFragment: Fragment() {
             binding.cameraViewFinder.visibility = View.VISIBLE
         }
 
+        binding.btnSendToBackend.setOnClickListener {
+            val gson = Gson()
+            val jsonData = gson.toJson(getUserInformation())
+            viewModel.uploadProfileInfo(jsonData)
+            //viewModel.uploadProfileInfo(getUserInformation())
+
+            val fileName = "test_image.jpg"
+            val file = File(requireContext().cacheDir, fileName)
+
+            try {
+                val inputStream = requireContext().assets.open("sausagesinfo.jpg")
+                val outputStream = FileOutputStream(file)
+
+                inputStream.use { input ->
+                    outputStream.use { output ->
+                        input.copyTo(output)
+                    }
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+
+            uploadImage(file)
+        }
+
         binding.btnAnalyse.setOnClickListener {
-            val fileName = "test_image"
+            getUserInformation()
+            val fileName = "test_image.jpg"
             val file = File(requireContext().cacheDir, fileName)
 
             Log.d("FilePath", "File path: ${file.absolutePath}")
@@ -150,9 +175,42 @@ class CameraFragment: Fragment() {
         }
     }
 
+    private fun getUserInformation(): User {
+        val sharedPref = requireContext().getSharedPreferences("MySharedPreferences", Context.MODE_PRIVATE)
+
+        val gender = sharedPref.getString("gender", "")!!
+        val age = sharedPref.getInt("age", 0)
+        val weight = sharedPref.getInt("weight", 0)
+        val height = sharedPref.getInt("height", 0)
+        val fitnessLevel = sharedPref.getString("fitnessLevel", "")!!
+        val weightPreference = sharedPref.getString("weightPreference", "")!!
+        val foodPreferences = sharedPref.getString("foodPreferences", "")!!
+
+        val allergiesList: ArrayList<String> = ArrayList()
+        val allergiesString = sharedPref.getString("allergies", "")
+        val allergiesArray = JSONArray(allergiesString)
+        for (i in 0 until allergiesArray.length()) {
+            allergiesList.add(allergiesArray.getString(i))
+        }
+
+        val user = User(
+            gender,
+            age,
+            weight,
+            height,
+            fitnessLevel,
+            allergiesList,
+            foodPreferences,
+            weightPreference
+        )
+
+        return user
+    }
+
     private fun takePhoto() {
         val imageCapture = imageCapture ?: return
-        val currentTime = SimpleDateFormat(Constants.FILE_NAME_FORMAT,
+        val currentTime = SimpleDateFormat(
+            Constants.FILE_NAME_FORMAT,
             Locale.getDefault())
             .format(System
                 .currentTimeMillis())
@@ -184,7 +242,8 @@ class CameraFragment: Fragment() {
                 }
 
                 override fun onError(exception: ImageCaptureException) {
-                    Log.e(Constants.TAG,
+                    Log.e(
+                        Constants.TAG,
                         "onError: ${exception.message}",
                         exception)
                 }

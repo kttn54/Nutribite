@@ -63,6 +63,20 @@
         app:layout_constraintBottom_toTopOf="@id/ll_buttons"
         android:visibility="gone"/>
 
+    <Button
+        android:id="@+id/btn_send_to_backend"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/ll_buttons"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:textAllCaps="false"
+        android:layout_weight="1"
+        android:background="@drawable/shape_button_rounded"
+        android:text="Send to backend"
+        android:visibility="visible" />
+
     <LinearLayout
         android:id="@+id/ll_buttons"
         app:layout_constraintStart_toStartOf="parent"

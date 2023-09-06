@@ -88,7 +88,8 @@ class TestCamera : AppCompatActivity() {
     private fun takePhoto() {
 
         val imageCapture = imageCapture ?: return
-        val currentTime = SimpleDateFormat(Constants.FILE_NAME_FORMAT,
+        val currentTime = SimpleDateFormat(
+            Constants.FILE_NAME_FORMAT,
             Locale.getDefault())
             .format(System
                 .currentTimeMillis())
@@ -123,7 +124,8 @@ class TestCamera : AppCompatActivity() {
                 }
 
                 override fun onError(exception: ImageCaptureException) {
-                    Log.e(Constants.TAG,
+                    Log.e(
+                        Constants.TAG,
                     "onError: ${exception.message}",
                     exception)
                 }
