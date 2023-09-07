@@ -20,12 +20,14 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.example.sc_nutri.BottomSheetFragment
 import com.example.sc_nutri.FileViewModel
 import com.example.sc_nutri.R
 import com.example.sc_nutri.Constants
 import com.example.sc_nutri.activities.MainActivity
 import com.example.sc_nutri.databinding.FragmentCameraBinding
 import com.example.sc_nutri.models.User
+import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -125,6 +127,8 @@ class CameraFragment: Fragment() {
         }
 
         binding.btnSendToBackend.setOnClickListener {
+            startBottomSheet()
+            /*
             val gson = Gson()
             val jsonData = gson.toJson(getUserInformation())
             viewModel.uploadProfileInfo(jsonData)
@@ -147,10 +151,12 @@ class CameraFragment: Fragment() {
             }
 
             uploadImage(file)
+             */
         }
 
         binding.btnAnalyse.setOnClickListener {
             getUserInformation()
+
             val fileName = "test_image.jpg"
             val file = File(requireContext().cacheDir, fileName)
 
@@ -169,10 +175,15 @@ class CameraFragment: Fragment() {
                 e.printStackTrace()
             }
 
-            uploadImage(file)
+            //uploadImage(file)
 
             //uploadImage(croppedFile!!)
         }
+    }
+
+    private fun startBottomSheet() {
+        val bottomSheetFragment = BottomSheetFragment()
+        bottomSheetFragment.show(childFragmentManager, bottomSheetFragment.tag)
     }
 
     private fun getUserInformation(): User {

@@ -1,6 +1,7 @@
 package com.example.sc_nutri
 
 import com.example.sc_nutri.models.BackendResponse
+import com.example.sc_nutri.models.RecommendationResponse
 import com.example.sc_nutri.models.User
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -13,7 +14,7 @@ class FileRepository {
     fun uploadProfileInfo(user: String): Call<BackendResponse> =
         FileAPI.instance.uploadProfileInfo(user)
 
-    fun uploadImage(file: File): Call<BackendResponse> =
+    fun uploadImage(file: File): Call<RecommendationResponse> =
         FileAPI.instance.uploadImage(
             image = MultipartBody.Part
                 .createFormData(

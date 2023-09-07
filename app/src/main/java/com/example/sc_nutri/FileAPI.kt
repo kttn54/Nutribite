@@ -1,6 +1,7 @@
 package com.example.sc_nutri
 
 import com.example.sc_nutri.models.BackendResponse
+import com.example.sc_nutri.models.RecommendationResponse
 import com.example.sc_nutri.models.User
 import okhttp3.MultipartBody
 import retrofit2.Call
@@ -24,7 +25,7 @@ interface FileAPI {
     @POST("uploadImage")
     fun uploadImage(
         @Part image: MultipartBody.Part
-    ): Call<BackendResponse>
+    ): Call<RecommendationResponse>
 
     companion object {
         val instance by lazy {
