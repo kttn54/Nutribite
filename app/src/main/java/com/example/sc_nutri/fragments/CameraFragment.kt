@@ -20,14 +20,17 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import com.example.sc_nutri.BottomSheetFragment
 import com.example.sc_nutri.FileViewModel
 import com.example.sc_nutri.R
 import com.example.sc_nutri.Constants
+import com.example.sc_nutri.Resource
 import com.example.sc_nutri.activities.MainActivity
+import com.example.sc_nutri.databinding.BottomSheetFragmentBinding
 import com.example.sc_nutri.databinding.FragmentCameraBinding
 import com.example.sc_nutri.models.User
-import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
 import com.theartofdev.edmodo.cropper.CropImage
 import com.theartofdev.edmodo.cropper.CropImageView
@@ -41,6 +44,7 @@ import java.util.*
 class CameraFragment: Fragment() {
 
     private lateinit var binding: FragmentCameraBinding
+    private lateinit var bsmBinding: BottomSheetFragmentBinding
     private lateinit var viewModel: FileViewModel
     private var imageCapture: ImageCapture? = null
     private lateinit var outputDirectory: File
@@ -92,6 +96,7 @@ class CameraFragment: Fragment() {
 
     private fun setupButtonBindings() {
         binding.btnStartCamera.setOnClickListener {
+            //startCamera()
             binding.btnStartCamera.visibility = View.GONE
             binding.btnCancelCamera.visibility = View.VISIBLE
             binding.btnCapture.visibility = View.VISIBLE
@@ -126,19 +131,21 @@ class CameraFragment: Fragment() {
             binding.cameraViewFinder.visibility = View.VISIBLE
         }
 
-        binding.btnSendToBackend.setOnClickListener {
-            startBottomSheet()
-            /*
+        binding.btnAnalyse.setOnClickListener {
+            binding.progressBar.visibility = View.VISIBLE
             val gson = Gson()
             val jsonData = gson.toJson(getUserInformation())
             viewModel.uploadProfileInfo(jsonData)
+            Log.d("test","profile data is $jsonData")
             //viewModel.uploadProfileInfo(getUserInformation())
 
             val fileName = "test_image.jpg"
             val file = File(requireContext().cacheDir, fileName)
 
+            Log.d("FilePath", "File path: ${file.absolutePath}")
+
             try {
-                val inputStream = requireContext().assets.open("sausagesinfo.jpg")
+                val inputStream = requireContext().assets.open("grainwaves_ingredients.png")
                 val outputStream = FileOutputStream(file)
 
                 inputStream.use { input ->
@@ -151,33 +158,9 @@ class CameraFragment: Fragment() {
             }
 
             uploadImage(file)
-             */
-        }
-
-        binding.btnAnalyse.setOnClickListener {
-            getUserInformation()
-
-            val fileName = "test_image.jpg"
-            val file = File(requireContext().cacheDir, fileName)
-
-            Log.d("FilePath", "File path: ${file.absolutePath}")
-
-            try {
-                val inputStream = requireContext().assets.open("sausagesinfo.jpg")
-                val outputStream = FileOutputStream(file)
-
-                inputStream.use { input ->
-                    outputStream.use { output ->
-                        input.copyTo(output)
-                    }
-                }
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
-            //uploadImage(file)
 
             //uploadImage(croppedFile!!)
+            saveRecommendationDetails()
         }
     }
 
@@ -370,6 +353,40 @@ class CameraFragment: Fragment() {
         }, ContextCompat.getMainExecutor(requireContext()))
     }
 
+    private fun saveRecommendationDetails() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.recommendationResponse.collect { recommendation ->
+                when (recommendation) {
+                    is Resource.Loading -> {
+                    }
+
+                    is Resource.Success -> {
+                        val sharedPref = requireContext().getSharedPreferences("MySharedPreferences", Context.MODE_PRIVATE)
+                        val editor = sharedPref.edit()
+                        val result = recommendation.data!!.response
+                        val recommendationResult = result.recommendation_result
+                        val reasonsArrayToString = result.reasons.joinToString(separator = "|~|")
+                        val ingredientsArrayToString = result.notable_ingredients.joinToString(separator = "|~|")
+                        val nutritionalAnalysisArrayToString = result.nutritional_analysis.joinToString(separator = "|~|")
+
+                        editor.putString("recommendation_result", recommendationResult)
+                        editor.putString("recommendation_reasons", reasonsArrayToString)
+                        editor.putString("recommendation_ingredients", ingredientsArrayToString)
+                        editor.putString("recommendation_nutritional_analysis", nutritionalAnalysisArrayToString)
+                        editor.apply()
+
+                        binding.progressBar.visibility = View.GONE
+                        startBottomSheet()
+                    }
+                    is Resource.Error -> {
+                        handleError(recommendation.message ?: "Unknown Error")
+                    }
+                    else -> Unit
+                }
+            }
+        }
+    }
+
     private fun allPermissionGranted(): Boolean {
         val context = requireContext()
         return Constants.REQUIRED_PERMISSIONS.all {
@@ -389,5 +406,9 @@ class CameraFragment: Fragment() {
                 requireActivity().onBackPressed()
             }
         }
+    }
+
+    private fun handleError(message: String) {
+        Toast.makeText(requireContext(), "Error: $message", Toast.LENGTH_LONG).show()
     }
 }

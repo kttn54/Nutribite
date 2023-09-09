@@ -9,7 +9,14 @@
         android:id="@+id/cameraFragment"
         android:name="com.example.sc_nutri.fragments.CameraFragment"
         android:label="fragment_camera"
-        tools:layout="@layout/fragment_camera" />
+        tools:layout="@layout/fragment_camera" >
+        <action
+            android:id="@+id/action_cameraFragment_to_bottomSheetFragment"
+            app:destination="@id/bottomSheetFragment" />
+        <action
+            android:id="@+id/action_cameraFragment_to_recommendationDetailsFragment"
+            app:destination="@id/recommendationDeatilsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.example.sc_nutri.fragments.HistoryFragment"
@@ -20,4 +27,17 @@
         android:name="com.example.sc_nutri.fragments.ProfileFragment"
         android:label="fragment_profile"
         tools:layout="@layout/fragment_profile" />
+    <fragment
+        android:id="@+id/recommendationDeatilsFragment"
+        android:name="com.example.sc_nutri.fragments.RecommendationDetailsFragment"
+        android:label="fragment_recommendation_deatils"
+        tools:layout="@layout/fragment_recommendation_details" />
+    <fragment
+        android:id="@+id/bottomSheetFragment"
+        android:name="com.example.sc_nutri.BottomSheetFragment"
+        android:label="BottomSheetFragment" >
+        <action
+            android:id="@+id/action_bottomSheetFragment_to_recommendationDetailsFragment"
+            app:destination="@id/recommendationDeatilsFragment" />
+    </fragment>
 </navigation>

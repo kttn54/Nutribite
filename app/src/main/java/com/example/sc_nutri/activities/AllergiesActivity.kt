@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import com.example.sc_nutri.R
 import com.example.sc_nutri.databinding.ActivityAllergiesBinding
 import org.json.JSONArray
@@ -226,8 +227,10 @@ class AllergiesActivity : AppCompatActivity() {
     private fun updateTextViewBackground(textview: TextView, isTextViewPressed: Boolean) {
         if (isTextViewPressed) {
             textview.setBackgroundResource(R.drawable.textview_highlighted_background)
+            textview.setTextColor(ContextCompat.getColor(this, R.color.white))
         } else {
             textview.setBackgroundResource(R.drawable.shape_textview_rounded)
+            textview.setTextColor(ContextCompat.getColor(this, R.color.black))
         }
     }
 }

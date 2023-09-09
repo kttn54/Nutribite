@@ -1,8 +1,7 @@
 package com.example.sc_nutri
 
-import com.example.sc_nutri.models.BackendResponse
+import com.example.sc_nutri.models.ProfileResponse
 import com.example.sc_nutri.models.RecommendationResponse
-import com.example.sc_nutri.models.User
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody.Companion.asRequestBody
@@ -11,7 +10,7 @@ import java.io.File
 
 class FileRepository {
 
-    fun uploadProfileInfo(user: String): Call<BackendResponse> =
+    fun uploadProfileInfo(user: String): Call<String> =
         FileAPI.instance.uploadProfileInfo(user)
 
     fun uploadImage(file: File): Call<RecommendationResponse> =

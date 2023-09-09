@@ -14,18 +14,41 @@
         android:background="@drawable/bottom_sheet_background"
         >
 
-    <ImageView
-        android:id="@+id/iv_bottom_sheet"
-        android:layout_width="70dp"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:layout_gravity="center|top"
-        android:src="@drawable/ic_remove"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <ImageView
+                android:id="@+id/iv_bottom_sheet"
+                android:layout_width="70dp"
+                android:layout_height="wrap_content"
+                android:scaleType="centerCrop"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_gravity="center|top"
+                android:src="@drawable/ic_remove"/>
+
+            <TextView
+                android:id="@+id/bsm_tv_recommendation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                app:layout_constraintTop_toBottomOf="@id/iv_bottom_sheet"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/white"
+                android:textSize="30sp"
+                android:text="Recommendation"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.core.widget.NestedScrollView
             android:id="@+id/nsv_bottom_sheet"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="30dp">
 
             <LinearLayout
                 android:id="@+id/ll_bottom_sheet"
@@ -33,103 +56,72 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/bsm_analysis"
+                <LinearLayout
+                    android:id="@+id/ll_recommendation_analysis"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginTop="20dp"
-                    android:textColor="@color/white"
-                    android:textSize="30sp"
-                    android:text="Analysis"/>
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
 
-                <TextView
-                    android:id="@+id/bsm_recommendation_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Recommendation"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"/>
+                    <ImageView
+                        android:id="@+id/iv_recommendation"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginTop="10dp"
+                        android:src="@drawable/rec_cross"
+                        android:scaleType="fitStart" />
 
-                <TextView
-                    android:id="@+id/bsm_recommendation_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="This is an example of a recommendation text, hello ma nem jeff"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/white"
-                    android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/bsm_tv_recommendation_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="It is recommended to consume this food item."
+                        android:layout_gravity="center"
+                        android:layout_marginStart="30dp"
+                        android:layout_marginEnd="30dp"
+                        android:textColor="@color/white"
+                        android:textSize="20sp" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/bsm_reasons_title"
+                <LinearLayout
+                    android:id="@+id/ll_recommendation_buttons"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Assessment"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"/>
+                    android:orientation="horizontal"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginTop="30dp">
 
-                <TextView
-                    android:id="@+id/bsm_reasons_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="You should not eat this product because of blah, blah and blah"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"/>
+                    <Button
+                        android:id="@+id/btn_bs_retake"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:textAllCaps="false"
+                        android:layout_weight="1"
+                        android:textColor="@color/sc_main_colour"
+                        app:backgroundTint="@color/white"
+                        android:background="@drawable/shape_button_rounded"
+                        android:text="Retake"
+                        android:textStyle="bold"/>
 
-                <TextView
-                    android:id="@+id/bsm_ingredients_evaluation_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Ingredients Evaluation"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:id="@+id/bsm_ingredients_evaluation_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="This contains a high amount of big MSG.\nMSG is short for Mono So Go."
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:id="@+id/bsm_nutritional_analysis_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Nutritional Analysis"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="20dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"/>
-
-                <TextView
-                    android:id="@+id/bsm_nutritional_analysis_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="This food product contains high amount of coolbeans, this is approximately 50% of your daily coolbeans intake."
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"/>
+                    <Button
+                        android:id="@+id/btn_bs_see_more"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textAllCaps="false"
+                        android:text="See more"
+                        android:background="@drawable/shape_button_rounded"
+                        android:textColor="@color/sc_main_colour"
+                        app:backgroundTint="@color/white"
+                        android:theme="@style/Button.White"
+                        android:layout_margin="8dp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
             </LinearLayout>
-
         </androidx.core.widget.NestedScrollView>
-
     </FrameLayout>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -100,7 +100,18 @@ class ProfileFragment: Fragment() {
     }
 
     private fun saveProfileInformation() {
+        val sharedPref = requireContext().getSharedPreferences("MySharedPreferences", Context.MODE_PRIVATE)
+        val editor = sharedPref.edit()
 
+        binding.apply {
+            editor.putString("gender", tvProfileGender.toString())
+            editor.putString("height", etProfileHeight.text.toString())
+            editor.putString("weight", etProfileWeight.text.toString())
+            editor.putString("weightPreference", tvProfileWeightPreferences.toString())
+            editor.putString("allergies", allergiesList.toString()) // todo: FIX THIS to be a string instead? or leave as an allergy
+            editor.putString("foodPreferences", etProfileFoodPreferences.text.toString())
+        }
+        editor.apply()
     }
 
     private fun setUIToBeEditable() {
