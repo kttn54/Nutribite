@@ -18,6 +18,7 @@ import androidx.camera.core.ImageCapture
 import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
@@ -108,6 +109,9 @@ class CameraFragment: Fragment() {
             binding.tvNutritionTakeAPhoto.visibility = View.GONE
             binding.tvNote.visibility = View.GONE
             binding.ivClearImageExample.visibility = View.GONE
+            binding.btnCapture.visibility = View.VISIBLE
+            binding.btnAnalyse.visibility = View.GONE
+            hasCroppedIngredientsImage = true
         }
 
         binding.btnAnalyse.setOnClickListener {
@@ -140,6 +144,12 @@ class CameraFragment: Fragment() {
 
             //uploadImage(croppedFile!!)
             saveRecommendationDetails()
+        }
+
+        binding.btnCapture.setOnClickListener {
+            binding.btnCapture.visibility = View.GONE
+            binding.btnAnalyse.visibility = View.VISIBLE
+            takePhoto()
         }
 
 /*
@@ -312,10 +322,29 @@ class CameraFragment: Fragment() {
     }
 
     private fun displayCroppedIngredientsImage() {
-        binding.ivCroppedIngredientsList.visibility = View.VISIBLE
-        binding.cameraViewFinder.visibility = View.GONE
-        binding.ivCroppedIngredientsList.setImageURI(Uri.fromFile(File(croppedIngredientsFilePath ?: "")))
-    }
+        val layoutParams = ConstraintLayout.LayoutParams(
+            ConstraintLayout.LayoutParams.MATCH_PARENT,
+            ConstraintLayout.LayoutParams.WRAP_CONTENT
+        )
+        layoutParams.topToBottom = R.id.iv_cropped_ingredients_list
+        layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
+        layoutParams.topMargin = resources.getDimensionPixelSize(R.dimen.margin_top_10)
+
+        binding.tvNutritionalInformation.layoutParams = layoutParams
+        binding.tvNutritionalInformation.requestLayout()
+
+        binding.apply {
+            cameraViewFinder.visibility = View.GONE
+            tvIngredientsList.visibility = View.VISIBLE
+            tvNutritionTakeAPhoto.visibility = View.VISIBLE
+            tvNutritionalInformation.visibility = View.VISIBLE
+            ivCroppedIngredientsList.visibility = View.VISIBLE
+            cameraViewFinder.visibility = View.GONE
+            ivCroppedIngredientsList.setImageURI(Uri.fromFile(File(croppedIngredientsFilePath ?: "")))
+
+        }
+}
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
