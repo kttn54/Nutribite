@@ -49,8 +49,12 @@ class CameraFragment: Fragment() {
     private var imageCapture: ImageCapture? = null
     private lateinit var outputDirectory: File
     private var photoFile: File?= null
-    private var croppedFilePath: String? = null
-    private var croppedFile: File? = null
+    private var croppedIngredientsFilePath: String? = null
+    private var croppedIngredientsFile: File? = null
+    private var hasCroppedIngredientsImage: Boolean = false
+    private var croppedNutritionFilePath: String? = null
+    private var croppedNutritionFile: File? = null
+    private var hasCroppedNutritionImage: Boolean = false
     private var filePath: String ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -68,7 +72,7 @@ class CameraFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         setupToolbar()
-        setupButtonBindings()
+        setupBindings()
 
         // Add the back press callback
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, backPressedCallback)
@@ -94,9 +98,12 @@ class CameraFragment: Fragment() {
         }
     }
 
-    private fun setupButtonBindings() {
+    private fun setupBindings() {
+        binding.ivCroppedNutritionalTable.setImageResource(R.drawable.no_image_small)
+        binding.ivCroppedIngredientsList.setImageResource(R.drawable.no_image_small)
+
         binding.btnStartCamera.setOnClickListener {
-            //startCamera()
+            startCamera()
             binding.btnStartCamera.visibility = View.GONE
             binding.btnCancelCamera.visibility = View.VISIBLE
             binding.btnCapture.visibility = View.VISIBLE
@@ -123,11 +130,15 @@ class CameraFragment: Fragment() {
         }
 
         binding.btnRetake.setOnClickListener {
+            startCamera()
             binding.btnCapture.visibility = View.VISIBLE
             binding.btnRetake.visibility = View.GONE
             binding.btnAnalyse.visibility = View.GONE
             binding.btnCancelCamera.visibility = View.VISIBLE
-            binding.ivCroppedImage.visibility = View.GONE
+            binding.ivCroppedIngredientsList.visibility = View.GONE
+            binding.ivCroppedNutritionalTable.visibility = View.GONE
+            binding.tvIngredientsList.visibility = View.GONE
+            binding.tvNutritionalInformation.visibility = View.GONE
             binding.cameraViewFinder.visibility = View.VISIBLE
         }
 
@@ -228,8 +239,6 @@ class CameraFragment: Fragment() {
                     val savedUri = Uri.fromFile(photoFile)
                     val msg = "Photo Saved"
 
-                    Log.d(Constants.TAG,"Photo image path is $savedUri")
-
                     CropImage.activity(savedUri)
                         .setGuidelines(CropImageView.Guidelines.ON)
                         .start(requireActivity(), this@CameraFragment)
@@ -270,15 +279,15 @@ class CameraFragment: Fragment() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE) {
             val result = CropImage.getActivityResult(data)
-            if (resultCode == AppCompatActivity.RESULT_OK) {
+            if (resultCode == AppCompatActivity.RESULT_OK && hasCroppedIngredientsImage) {
                 val croppedUri = result.uri
 
                 // Convert the cropped URI to a File object
-                croppedFile = File(croppedUri.path ?: "")
+                croppedIngredientsFile = File(croppedUri.path ?: "")
 
-                if (croppedFile!!.exists()) {
-                    croppedFilePath = croppedFile!!.absolutePath
-                    displayCroppedImage()
+                if (croppedIngredientsFile!!.exists()) {
+                    croppedIngredientsFilePath = croppedIngredientsFile!!.absolutePath
+                    displayCroppedIngredientsImage()
                     Log.d(Constants.TAG,"Crop image path is $filePath")
                 } else {
                     Log.e(Constants.TAG, "Cropped file not found")
@@ -294,10 +303,10 @@ class CameraFragment: Fragment() {
         }
     }
 
-    private fun displayCroppedImage() {
-        binding.ivCroppedImage.visibility = View.VISIBLE
+    private fun displayCroppedIngredientsImage() {
+        binding.ivCroppedIngredientsList.visibility = View.VISIBLE
         binding.cameraViewFinder.visibility = View.GONE
-        binding.ivCroppedImage.setImageURI(Uri.fromFile(File(croppedFilePath ?: "")))
+        binding.ivCroppedIngredientsList.setImageURI(Uri.fromFile(File(croppedIngredientsFilePath ?: "")))
     }
 
     override fun onRequestPermissionsResult(
@@ -325,7 +334,6 @@ class CameraFragment: Fragment() {
         cameraProviderFuture.addListener({
 
             val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
-
 
             val preview = Preview.Builder()
                 .build()

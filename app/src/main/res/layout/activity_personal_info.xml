@@ -26,7 +26,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="15dp"
         android:text="Input your information"
         android:textColor="@color/black"
         android:textStyle="bold"
@@ -158,37 +158,11 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/ll_fitness_level"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/ll_height"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="25dp"
-        android:layout_marginStart="@dimen/ll_personal_info_margin_start_end"
-        android:layout_marginEnd="@dimen/ll_personal_info_margin_start_end">
-
-        <TextView
-            android:id="@+id/tv_fitness_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fitness activity: "
-            android:textColor="@color/black"
-            android:textSize="@dimen/ll_personal_info_text_size"/>
-
-        <Spinner
-            android:id="@+id/spinner_fitness_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="40dp"/>
-    </LinearLayout>
-    <LinearLayout
         android:id="@+id/ll_gain_lose_weight"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintTop_toBottomOf="@id/ll_fitness_level"
+        app:layout_constraintTop_toBottomOf="@id/ll_height"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="25dp"
@@ -209,6 +183,35 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/ll_fitness_level"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/ll_gain_lose_weight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="@dimen/ll_personal_info_margin_start_end">
+
+        <TextView
+            android:id="@+id/tv_fitness_level"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/ll_personal_info_margin_start_end"
+            android:text="Fitness activity: "
+            android:textColor="@color/black"
+            android:textSize="@dimen/ll_personal_info_text_size"/>
+
+        <Spinner
+            android:id="@+id/spinner_fitness_level"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"/>
+    </LinearLayout>
+
 
     <Button
         android:id="@+id/btn_personal_info_continue"

@@ -45,13 +45,13 @@ class PersonalInfoActivity : AppCompatActivity() {
 
     private fun initialiseUI() {
         val genderOptions = resources.getStringArray(R.array.genders)
-        binding.spinnerGender.adapter = ArrayAdapter(this, R.layout.custom_spinner_item, genderOptions)
+        binding.spinnerGender.adapter = ArrayAdapter(this, R.layout.custom_spinner_item, R.id.spinner_item_text, genderOptions)
 
         val fitnessActivityOptions = resources.getStringArray(R.array.fitnessLevel)
-        binding.spinnerFitnessLevel.adapter = ArrayAdapter(this, R.layout.custom_spinner_item, fitnessActivityOptions)
+        binding.spinnerFitnessLevel.adapter = ArrayAdapter(this, R.layout.custom_spinner_item, R.id.spinner_item_text, fitnessActivityOptions)
 
         val weightPreferencesOptions = resources.getStringArray(R.array.weightPreferences)
-        binding.spinnerGainLoseWeight.adapter = ArrayAdapter(this, R.layout.custom_spinner_item, weightPreferencesOptions)
+        binding.spinnerGainLoseWeight.adapter = ArrayAdapter(this, R.layout.custom_spinner_item, R.id.spinner_item_text, weightPreferencesOptions)
 
     }
 }
