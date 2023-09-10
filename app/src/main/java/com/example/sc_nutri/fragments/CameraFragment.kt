@@ -75,7 +75,7 @@ class CameraFragment: Fragment() {
         setupBindings()
 
         // Add the back press callback
-        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, backPressedCallback)
+        // requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, backPressedCallback)
 
         outputDirectory = getOutputDirectory(requireContext())
 
@@ -99,47 +99,15 @@ class CameraFragment: Fragment() {
     }
 
     private fun setupBindings() {
-        binding.ivCroppedNutritionalTable.setImageResource(R.drawable.no_image_small)
-        binding.ivCroppedIngredientsList.setImageResource(R.drawable.no_image_small)
-
-        binding.btnStartCamera.setOnClickListener {
+        binding.tvIngredientsTakeAPhoto.setOnClickListener {
             startCamera()
-            binding.btnStartCamera.visibility = View.GONE
-            binding.btnCancelCamera.visibility = View.VISIBLE
-            binding.btnCapture.visibility = View.VISIBLE
-            binding.tvText.visibility = View.GONE
-            binding.ivClearImageExample.visibility = View.GONE
             binding.cameraViewFinder.visibility = View.VISIBLE
-        }
-
-        binding.btnCancelCamera.setOnClickListener {
-            binding.btnStartCamera.visibility = View.VISIBLE
-            binding.btnCancelCamera.visibility = View.GONE
-            binding.btnCapture.visibility = View.GONE
-            binding.tvText.visibility = View.VISIBLE
-            binding.ivClearImageExample.visibility = View.VISIBLE
-            binding.cameraViewFinder.visibility = View.GONE
-        }
-
-        binding.btnCapture.setOnClickListener {
-            binding.btnCapture.visibility = View.GONE
-            binding.btnCancelCamera.visibility = View.GONE
-            binding.btnAnalyse.visibility = View.VISIBLE
-            binding.btnRetake.visibility = View.VISIBLE
-            takePhoto()
-        }
-
-        binding.btnRetake.setOnClickListener {
-            startCamera()
-            binding.btnCapture.visibility = View.VISIBLE
-            binding.btnRetake.visibility = View.GONE
-            binding.btnAnalyse.visibility = View.GONE
-            binding.btnCancelCamera.visibility = View.VISIBLE
-            binding.ivCroppedIngredientsList.visibility = View.GONE
-            binding.ivCroppedNutritionalTable.visibility = View.GONE
-            binding.tvIngredientsList.visibility = View.GONE
             binding.tvNutritionalInformation.visibility = View.GONE
-            binding.cameraViewFinder.visibility = View.VISIBLE
+            binding.tvIngredientsList.visibility = View.GONE
+            binding.tvIngredientsTakeAPhoto.visibility = View.GONE
+            binding.tvNutritionTakeAPhoto.visibility = View.GONE
+            binding.tvNote.visibility = View.GONE
+            binding.ivClearImageExample.visibility = View.GONE
         }
 
         binding.btnAnalyse.setOnClickListener {
@@ -173,6 +141,46 @@ class CameraFragment: Fragment() {
             //uploadImage(croppedFile!!)
             saveRecommendationDetails()
         }
+
+/*
+        binding.btnStartCamera.setOnClickListener {
+            startCamera()
+            binding.btnStartCamera.visibility = View.GONE
+            binding.btnCancelCamera.visibility = View.VISIBLE
+            binding.btnCapture.visibility = View.VISIBLE
+            binding.cameraViewFinder.visibility = View.VISIBLE
+        }
+
+        binding.btnCancelCamera.setOnClickListener {
+            binding.btnStartCamera.visibility = View.VISIBLE
+            binding.btnCancelCamera.visibility = View.GONE
+            binding.btnCapture.visibility = View.GONE
+            binding.cameraViewFinder.visibility = View.GONE
+        }
+
+        binding.btnCapture.setOnClickListener {
+            binding.btnCapture.visibility = View.GONE
+            binding.btnCancelCamera.visibility = View.GONE
+            binding.btnAnalyse.visibility = View.VISIBLE
+            binding.btnRetake.visibility = View.VISIBLE
+            takePhoto()
+        }
+
+
+        binding.btnRetake.setOnClickListener {
+            startCamera()
+            binding.btnCapture.visibility = View.VISIBLE
+            binding.btnRetake.visibility = View.GONE
+            binding.btnAnalyse.visibility = View.GONE
+            binding.btnCancelCamera.visibility = View.VISIBLE
+            binding.ivCroppedIngredientsList.visibility = View.GONE
+            binding.ivCroppedNutritionalTable.visibility = View.GONE
+            binding.tvIngredientsList.visibility = View.GONE
+            binding.tvNutritionalInformation.visibility = View.GONE
+            binding.cameraViewFinder.visibility = View.VISIBLE
+        }
+
+ */
     }
 
     private fun startBottomSheet() {
@@ -404,6 +412,7 @@ class CameraFragment: Fragment() {
         }
     }
 
+    /*
     private val backPressedCallback = object : OnBackPressedCallback(true) {
         override fun handleOnBackPressed() {
             if (CropImage.isExplicitCameraPermissionRequired(requireContext())) {
@@ -415,6 +424,7 @@ class CameraFragment: Fragment() {
             }
         }
     }
+     */
 
     private fun handleError(message: String) {
         Toast.makeText(requireContext(), "Error: $message", Toast.LENGTH_LONG).show()
