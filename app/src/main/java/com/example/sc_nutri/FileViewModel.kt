@@ -40,8 +40,8 @@ class FileViewModel(
         })
     }
 
-    fun uploadImage(file: File) {
-        repository.uploadImage(file).enqueue(object: Callback<RecommendationResponse> {
+    fun uploadImages(ingredientsFile: File, nutritionalFile: File) {
+        repository.uploadImages(ingredientsFile, nutritionalFile).enqueue(object: Callback<RecommendationResponse> {
             override fun onResponse(call: Call<RecommendationResponse>, response: Response<RecommendationResponse>) {
                 if (response.body() != null) {
                     viewModelScope.launch {

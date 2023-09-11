@@ -22,8 +22,9 @@ interface FileAPI {
 
     @Multipart
     @POST("food-recommendation")
-    fun uploadImage(
-        @Part image: MultipartBody.Part
+    fun uploadImages(
+        @Part image1: MultipartBody.Part,
+        @Part image2: MultipartBody.Part
     ): Call<RecommendationResponse>
 
     companion object {
@@ -34,7 +35,7 @@ interface FileAPI {
 
         val instance by lazy {
             Retrofit.Builder()
-                .baseUrl("http://10.0.2.2:4000/")
+                .baseUrl("http://192.168.0.63:4000/")
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

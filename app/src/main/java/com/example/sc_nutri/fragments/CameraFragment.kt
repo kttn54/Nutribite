@@ -45,7 +45,6 @@ import java.util.*
 class CameraFragment: Fragment() {
 
     private lateinit var binding: FragmentCameraBinding
-    private lateinit var bsmBinding: BottomSheetFragmentBinding
     private lateinit var viewModel: FileViewModel
     private var imageCapture: ImageCapture? = null
     private lateinit var outputDirectory: File
@@ -56,6 +55,8 @@ class CameraFragment: Fragment() {
     private var croppedNutritionFilePath: String? = null
     private var croppedNutritionFile: File? = null
     private var hasCroppedNutritionImage: Boolean = false
+    private var isIngredientsOnDisplay: Boolean = false
+    private var isNutritionOnDisplay: Boolean = false
     private var filePath: String ?= null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -102,35 +103,31 @@ class CameraFragment: Fragment() {
     private fun setupBindings() {
         binding.cvIngredients.setOnClickListener {
             startCamera()
-            binding.cvIngredients.visibility = View.GONE
-            binding.cvNutrition.visibility = View.GONE
-            binding.tvNutritionalInformation.visibility = View.GONE
-            binding.tvIngredientsList.visibility = View.GONE
-            binding.cameraViewFinder.visibility = View.VISIBLE
-            binding.tvIngredientsTakeAPhoto.visibility = View.GONE
-            binding.tvNutritionTakeAPhoto.visibility = View.GONE
-            binding.tvNote.visibility = View.GONE
-            binding.ivClearImageExample.visibility = View.GONE
-            binding.btnCapture.visibility = View.VISIBLE
-            binding.btnAnalyse.visibility = View.GONE
+            hideUI()
             hasCroppedIngredientsImage = true
         }
 
         binding.cvNutrition.setOnClickListener {
             startCamera()
-            binding.cvIngredients.visibility = View.GONE
-            binding.cvNutrition.visibility = View.GONE
-            binding.tvNutritionalInformation.visibility = View.GONE
-            binding.tvIngredientsList.visibility = View.GONE
-            binding.cameraViewFinder.visibility = View.VISIBLE
-            binding.tvIngredientsTakeAPhoto.visibility = View.GONE
-            binding.tvNutritionTakeAPhoto.visibility = View.GONE
-            binding.tvNote.visibility = View.GONE
-            binding.ivClearImageExample.visibility = View.GONE
-            binding.btnCapture.visibility = View.VISIBLE
-            binding.btnAnalyse.visibility = View.GONE
-            hasCroppedNutritionImage = true
+            hideUI()
             binding.ivCroppedIngredientsList.visibility = View.GONE
+            hasCroppedNutritionImage = true
+        }
+
+        binding.ivCroppedIngredientsList.setOnClickListener {
+            startCamera()
+            hideUI()
+            binding.ivCroppedIngredientsList.visibility = View.GONE
+            binding.ivCroppedNutritionalTable.visibility = View.GONE
+            hasCroppedIngredientsImage = true
+        }
+
+        binding.ivCroppedNutritionalTable.setOnClickListener {
+            startCamera()
+            hideUI()
+            binding.ivCroppedIngredientsList.visibility = View.GONE
+            binding.ivCroppedNutritionalTable.visibility = View.GONE
+            hasCroppedNutritionImage = true
         }
 
         binding.btnAnalyse.setOnClickListener {
@@ -139,29 +136,7 @@ class CameraFragment: Fragment() {
             val jsonData = gson.toJson(getUserInformation())
             viewModel.uploadProfileInfo(jsonData)
 
-            /*
-            viewModel.uploadProfileInfo(getUserInformation())
-
-            val fileName = "test_image.jpg"
-            val file = File(requireContext().cacheDir, fileName)
-
-            try {
-                val inputStream = requireContext().assets.open("grainwaves_ingredients.png")
-                val outputStream = FileOutputStream(file)
-
-                inputStream.use { input ->
-                    outputStream.use { output ->
-                        input.copyTo(output)
-                    }
-                }
-            } catch (e: IOException) {
-                e.printStackTrace()
-            }
-
-            uploadImage(file)
-             */
-
-            uploadImage(croppedIngredientsFile!!)
+            viewModel.uploadImages(croppedIngredientsFile!!, croppedNutritionFile!!)
             saveRecommendationDetails()
         }
 
@@ -170,46 +145,20 @@ class CameraFragment: Fragment() {
             binding.btnAnalyse.visibility = View.VISIBLE
             takePhoto()
         }
+    }
 
-/*
-        binding.btnStartCamera.setOnClickListener {
-            startCamera()
-            binding.btnStartCamera.visibility = View.GONE
-            binding.btnCancelCamera.visibility = View.VISIBLE
-            binding.btnCapture.visibility = View.VISIBLE
-            binding.cameraViewFinder.visibility = View.VISIBLE
-        }
-
-        binding.btnCancelCamera.setOnClickListener {
-            binding.btnStartCamera.visibility = View.VISIBLE
-            binding.btnCancelCamera.visibility = View.GONE
-            binding.btnCapture.visibility = View.GONE
-            binding.cameraViewFinder.visibility = View.GONE
-        }
-
-        binding.btnCapture.setOnClickListener {
-            binding.btnCapture.visibility = View.GONE
-            binding.btnCancelCamera.visibility = View.GONE
-            binding.btnAnalyse.visibility = View.VISIBLE
-            binding.btnRetake.visibility = View.VISIBLE
-            takePhoto()
-        }
-
-
-        binding.btnRetake.setOnClickListener {
-            startCamera()
-            binding.btnCapture.visibility = View.VISIBLE
-            binding.btnRetake.visibility = View.GONE
-            binding.btnAnalyse.visibility = View.GONE
-            binding.btnCancelCamera.visibility = View.VISIBLE
-            binding.ivCroppedIngredientsList.visibility = View.GONE
-            binding.ivCroppedNutritionalTable.visibility = View.GONE
-            binding.tvIngredientsList.visibility = View.GONE
-            binding.tvNutritionalInformation.visibility = View.GONE
-            binding.cameraViewFinder.visibility = View.VISIBLE
-        }
-
- */
+    private fun hideUI() {
+        binding.cvIngredients.visibility = View.GONE
+        binding.cvNutrition.visibility = View.GONE
+        binding.tvNutritionalInformation.visibility = View.GONE
+        binding.tvIngredientsList.visibility = View.GONE
+        binding.cameraViewFinder.visibility = View.VISIBLE
+        binding.tvIngredientsTakeAPhoto.visibility = View.GONE
+        binding.tvNutritionTakeAPhoto.visibility = View.GONE
+        binding.tvNote.visibility = View.GONE
+        binding.ivClearImageExample.visibility = View.GONE
+        binding.btnCapture.visibility = View.VISIBLE
+        binding.btnAnalyse.visibility = View.GONE
     }
 
     private fun startBottomSheet() {
@@ -291,16 +240,6 @@ class CameraFragment: Fragment() {
         )
     }
 
-    private fun uploadImage(file: File) {
-        if (file.exists()) {
-            Log.d(Constants.TAG, "File path: ${file.absolutePath}")
-
-            viewModel.uploadImage(file)
-        } else {
-            Log.e(Constants.TAG, "File not found: ${file.absolutePath}")
-        }
-    }
-
     private fun getOutputDirectory(context: Context): File {
         val mediaDir = context.externalMediaDirs.firstOrNull()?.let { mFile ->
             File(mFile, resources.getString(R.string.app_name)).apply {
@@ -320,31 +259,37 @@ class CameraFragment: Fragment() {
                 val croppedUri = result.uri
 
                 hasCroppedIngredientsImage = false
-                binding.cvNutrition.visibility = View.VISIBLE
+
+                if (isNutritionOnDisplay) {
+                    binding.cvNutrition.visibility = View.GONE
+                    binding.ivCroppedNutritionalTable.visibility = View.VISIBLE
+                } else {
+                    binding.cvNutrition.visibility = View.VISIBLE
+                }
 
                 // Convert the cropped URI to a File object
                 croppedIngredientsFile = File(croppedUri.path ?: "")
-                Log.d("test", "croppedingredients file is $croppedIngredientsFile")
+
                 if (croppedIngredientsFile!!.exists()) {
                     croppedIngredientsFilePath = croppedIngredientsFile!!.absolutePath
                     displayCroppedIngredientsImage()
-                    binding.cvNutrition.visibility = View.VISIBLE
                 } else {
-                    Log.e(Constants.TAG, "Cropped file not found")
+                    handleError("Cropped file not found")
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
-                val error = result.error
-                Toast.makeText(requireContext(),
-                    "Crop Image: Error",
-                    Toast.LENGTH_LONG).show()
-
-                Log.e(Constants.TAG, "Crop image error")
+                handleError("Crop Image: Error")
             }
             if (resultCode == AppCompatActivity.RESULT_OK && hasCroppedNutritionImage) {
                 val croppedUri = result.uri
 
                 hasCroppedNutritionImage = false
-                binding.cvNutrition.visibility = View.VISIBLE
+
+                if (isIngredientsOnDisplay) {
+                    binding.cvIngredients.visibility = View.GONE
+                    binding.ivCroppedIngredientsList.visibility = View.VISIBLE
+                } else {
+                    binding.cvIngredients.visibility = View.VISIBLE
+                }
 
                 // Convert the cropped URI to a File object
                 croppedNutritionFile = File(croppedUri.path ?: "")
@@ -354,15 +299,14 @@ class CameraFragment: Fragment() {
                     displayCroppedNutritionImage()
                     binding.cvNutrition.visibility = View.GONE
                 } else {
-                    Log.e(Constants.TAG, "Cropped file not found")
+                    handleError("Cropped file not found")
                 }
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 val error = result.error
                 Toast.makeText(requireContext(),
                     "Crop Image: Error",
                     Toast.LENGTH_LONG).show()
-
-                Log.e(Constants.TAG, "Crop image error")
+                handleError("Crop image error")
             }
         }
     }
@@ -381,6 +325,8 @@ class CameraFragment: Fragment() {
         binding.tvNutritionalInformation.layoutParams = layoutParams
         binding.tvNutritionalInformation.requestLayout()
 
+        isIngredientsOnDisplay = true
+
         binding.apply {
             cameraViewFinder.visibility = View.GONE
             tvIngredientsList.visibility = View.VISIBLE
@@ -392,6 +338,7 @@ class CameraFragment: Fragment() {
     }
 
     private fun displayCroppedNutritionImage() {
+        isNutritionOnDisplay = true
         binding.apply {
             cameraViewFinder.visibility = View.GONE
             tvIngredientsList.visibility = View.VISIBLE
@@ -497,20 +444,6 @@ class CameraFragment: Fragment() {
             ) == PackageManager.PERMISSION_GRANTED
         }
     }
-
-    /*
-    private val backPressedCallback = object : OnBackPressedCallback(true) {
-        override fun handleOnBackPressed() {
-            if (CropImage.isExplicitCameraPermissionRequired(requireContext())) {
-                binding.btnCapture.visibility = View.VISIBLE
-                binding.btnCancelCamera.visibility = View.VISIBLE
-            } else {
-                isEnabled = false // Disable the callback and allow the default behavior
-                requireActivity().onBackPressed()
-            }
-        }
-    }
-     */
 
     private fun handleError(message: String) {
         Toast.makeText(requireContext(), "Error: $message", Toast.LENGTH_LONG).show()

@@ -18,11 +18,6 @@
             app:destination="@id/recommendationDeatilsFragment" />
     </fragment>
     <fragment
-        android:id="@+id/historyFragment"
-        android:name="com.example.sc_nutri.fragments.HistoryFragment"
-        android:label="fragment_history"
-        tools:layout="@layout/fragment_history" />
-    <fragment
         android:id="@+id/profileFragment"
         android:name="com.example.sc_nutri.fragments.ProfileFragment"
         android:label="fragment_profile"
