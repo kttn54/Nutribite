@@ -21,8 +21,8 @@ class BottomSheetFragment: BottomSheetDialogFragment() {
 
         bsmBinding.btnBsRetake.setOnClickListener {
             dismiss()
-
         }
+
         bsmBinding.btnBsSeeMore.setOnClickListener {
             findNavController().navigate(R.id.action_cameraFragment_to_recommendationDetailsFragment)
         }

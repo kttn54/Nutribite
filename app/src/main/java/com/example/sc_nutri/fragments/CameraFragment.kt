@@ -139,7 +139,8 @@ class CameraFragment: Fragment() {
             val jsonData = gson.toJson(getUserInformation())
             viewModel.uploadProfileInfo(jsonData)
 
-            //viewModel.uploadProfileInfo(getUserInformation())
+            /*
+            viewModel.uploadProfileInfo(getUserInformation())
 
             val fileName = "test_image.jpg"
             val file = File(requireContext().cacheDir, fileName)
@@ -158,8 +159,9 @@ class CameraFragment: Fragment() {
             }
 
             uploadImage(file)
+             */
 
-            //uploadImage(croppedFile!!)
+            uploadImage(croppedIngredientsFile!!)
             saveRecommendationDetails()
         }
 
@@ -322,7 +324,7 @@ class CameraFragment: Fragment() {
 
                 // Convert the cropped URI to a File object
                 croppedIngredientsFile = File(croppedUri.path ?: "")
-
+                Log.d("test", "croppedingredients file is $croppedIngredientsFile")
                 if (croppedIngredientsFile!!.exists()) {
                     croppedIngredientsFilePath = croppedIngredientsFile!!.absolutePath
                     displayCroppedIngredientsImage()
