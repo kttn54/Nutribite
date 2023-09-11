@@ -100,11 +100,13 @@ class CameraFragment: Fragment() {
     }
 
     private fun setupBindings() {
-        binding.tvIngredientsTakeAPhoto.setOnClickListener {
+        binding.cvIngredients.setOnClickListener {
             startCamera()
-            binding.cameraViewFinder.visibility = View.VISIBLE
+            binding.cvIngredients.visibility = View.GONE
+            binding.cvNutrition.visibility = View.GONE
             binding.tvNutritionalInformation.visibility = View.GONE
             binding.tvIngredientsList.visibility = View.GONE
+            binding.cameraViewFinder.visibility = View.VISIBLE
             binding.tvIngredientsTakeAPhoto.visibility = View.GONE
             binding.tvNutritionTakeAPhoto.visibility = View.GONE
             binding.tvNote.visibility = View.GONE
@@ -114,18 +116,33 @@ class CameraFragment: Fragment() {
             hasCroppedIngredientsImage = true
         }
 
+        binding.cvNutrition.setOnClickListener {
+            startCamera()
+            binding.cvIngredients.visibility = View.GONE
+            binding.cvNutrition.visibility = View.GONE
+            binding.tvNutritionalInformation.visibility = View.GONE
+            binding.tvIngredientsList.visibility = View.GONE
+            binding.cameraViewFinder.visibility = View.VISIBLE
+            binding.tvIngredientsTakeAPhoto.visibility = View.GONE
+            binding.tvNutritionTakeAPhoto.visibility = View.GONE
+            binding.tvNote.visibility = View.GONE
+            binding.ivClearImageExample.visibility = View.GONE
+            binding.btnCapture.visibility = View.VISIBLE
+            binding.btnAnalyse.visibility = View.GONE
+            hasCroppedNutritionImage = true
+            binding.ivCroppedIngredientsList.visibility = View.GONE
+        }
+
         binding.btnAnalyse.setOnClickListener {
             binding.progressBar.visibility = View.VISIBLE
             val gson = Gson()
             val jsonData = gson.toJson(getUserInformation())
             viewModel.uploadProfileInfo(jsonData)
-            Log.d("test","profile data is $jsonData")
+
             //viewModel.uploadProfileInfo(getUserInformation())
 
             val fileName = "test_image.jpg"
             val file = File(requireContext().cacheDir, fileName)
-
-            Log.d("FilePath", "File path: ${file.absolutePath}")
 
             try {
                 val inputStream = requireContext().assets.open("grainwaves_ingredients.png")
@@ -300,13 +317,40 @@ class CameraFragment: Fragment() {
             if (resultCode == AppCompatActivity.RESULT_OK && hasCroppedIngredientsImage) {
                 val croppedUri = result.uri
 
+                hasCroppedIngredientsImage = false
+                binding.cvNutrition.visibility = View.VISIBLE
+
                 // Convert the cropped URI to a File object
                 croppedIngredientsFile = File(croppedUri.path ?: "")
 
                 if (croppedIngredientsFile!!.exists()) {
                     croppedIngredientsFilePath = croppedIngredientsFile!!.absolutePath
                     displayCroppedIngredientsImage()
-                    Log.d(Constants.TAG,"Crop image path is $filePath")
+                    binding.cvNutrition.visibility = View.VISIBLE
+                } else {
+                    Log.e(Constants.TAG, "Cropped file not found")
+                }
+            } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
+                val error = result.error
+                Toast.makeText(requireContext(),
+                    "Crop Image: Error",
+                    Toast.LENGTH_LONG).show()
+
+                Log.e(Constants.TAG, "Crop image error")
+            }
+            if (resultCode == AppCompatActivity.RESULT_OK && hasCroppedNutritionImage) {
+                val croppedUri = result.uri
+
+                hasCroppedNutritionImage = false
+                binding.cvNutrition.visibility = View.VISIBLE
+
+                // Convert the cropped URI to a File object
+                croppedNutritionFile = File(croppedUri.path ?: "")
+
+                if (croppedNutritionFile!!.exists()) {
+                    croppedNutritionFilePath = croppedNutritionFile!!.absolutePath
+                    displayCroppedNutritionImage()
+                    binding.cvNutrition.visibility = View.GONE
                 } else {
                     Log.e(Constants.TAG, "Cropped file not found")
                 }
@@ -329,7 +373,8 @@ class CameraFragment: Fragment() {
         layoutParams.topToBottom = R.id.iv_cropped_ingredients_list
         layoutParams.endToEnd = ConstraintLayout.LayoutParams.PARENT_ID
         layoutParams.startToStart = ConstraintLayout.LayoutParams.PARENT_ID
-        layoutParams.topMargin = resources.getDimensionPixelSize(R.dimen.margin_top_10)
+        layoutParams.topMargin = resources.getDimensionPixelSize(R.dimen.margin_top_20)
+        layoutParams.marginStart = resources.getDimensionPixelSize(R.dimen.margin_start_20)
 
         binding.tvNutritionalInformation.layoutParams = layoutParams
         binding.tvNutritionalInformation.requestLayout()
@@ -340,11 +385,21 @@ class CameraFragment: Fragment() {
             tvNutritionTakeAPhoto.visibility = View.VISIBLE
             tvNutritionalInformation.visibility = View.VISIBLE
             ivCroppedIngredientsList.visibility = View.VISIBLE
-            cameraViewFinder.visibility = View.GONE
             ivCroppedIngredientsList.setImageURI(Uri.fromFile(File(croppedIngredientsFilePath ?: "")))
-
         }
-}
+    }
+
+    private fun displayCroppedNutritionImage() {
+        binding.apply {
+            cameraViewFinder.visibility = View.GONE
+            tvIngredientsList.visibility = View.VISIBLE
+            tvNutritionTakeAPhoto.visibility = View.VISIBLE
+            tvNutritionalInformation.visibility = View.VISIBLE
+            ivCroppedNutritionalTable.visibility = View.VISIBLE
+            binding.ivCroppedIngredientsList.visibility = View.VISIBLE
+            ivCroppedNutritionalTable.setImageURI(Uri.fromFile(File(croppedNutritionFilePath ?: "")))
+        }
+    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,

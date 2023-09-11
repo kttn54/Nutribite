@@ -15,5 +15,6 @@
     <dimen name="allergies_iv_padding">5dp</dimen>
     <dimen name="profile_ll_margin_top">20dp</dimen>
     <dimen name="ll_profile_info_margin_top">10dp</dimen>
-    <dimen name="margin_top_10">10dp</dimen>
+    <dimen name="margin_top_20">20dp</dimen>
+    <dimen name="margin_start_20">20dp</dimen>
 </resources>
