@@ -29,13 +29,13 @@ interface FileAPI {
 
     companion object {
         private val okHttpClient = OkHttpClient.Builder()
-            .connectTimeout(30, TimeUnit.SECONDS) // Set the connection timeout to 30 seconds
-            .readTimeout(30, TimeUnit.SECONDS)    // Set the read timeout to 30 seconds
+            .connectTimeout(60, TimeUnit.SECONDS)
+            .readTimeout(60, TimeUnit.SECONDS)
             .build()
 
         val instance by lazy {
             Retrofit.Builder()
-                .baseUrl("http://192.168.0.63:4000/")
+                .baseUrl("http://192.168.43.15:4000/")
                 .client(okHttpClient)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()

@@ -136,6 +136,42 @@ class CameraFragment: Fragment() {
             val jsonData = gson.toJson(getUserInformation())
             viewModel.uploadProfileInfo(jsonData)
 
+            /*
+            val ingredientsName = "test_image_ingredients.jpg"
+            val ingredientsFile = File(requireContext().cacheDir, ingredientsName)
+
+            try {
+                val inputStream = requireContext().assets.open("vege_ingredients.png")
+                val outputStream = FileOutputStream(ingredientsFile)
+
+                inputStream.use { input ->
+                    outputStream.use { output ->
+                        input.copyTo(output)
+                    }
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+                // Handle any potential exceptions here
+            }
+
+            val nutritionName = "test_image_nutritional.jpg"
+            val nutritionFile = File(requireContext().cacheDir, nutritionName)
+
+            try {
+                val inputStream = requireContext().assets.open("vege_nutritional.png")
+                val outputStream = FileOutputStream(nutritionFile)
+
+                inputStream.use { input ->
+                    outputStream.use { output ->
+                        input.copyTo(output)
+                    }
+                }
+            } catch (e: IOException) {
+                e.printStackTrace()
+            }
+            viewModel.uploadImages(ingredientsFile, nutritionFile)
+
+             */
             viewModel.uploadImages(croppedIngredientsFile!!, croppedNutritionFile!!)
             saveRecommendationDetails()
         }

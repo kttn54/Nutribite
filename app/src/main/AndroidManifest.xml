@@ -38,10 +38,6 @@
             android:screenOrientation="portrait"
             android:exported="false" />
         <activity
-            android:name=".activities.TestCamera"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activities.IntroductionActivity"
             android:exported="true"
             android:screenOrientation="portrait">
